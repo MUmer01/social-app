@@ -9,10 +9,7 @@ const AuthProvider = (props) => {
   const { createUser } = useAuthCounteiner();
 
   const registerUser = () => {
-    // Validation
-    // If Pass
-    // Call container API Function
-    createUser();
+    createUser(name, email, password);
   };
 
   const providerValues = {

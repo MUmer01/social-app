@@ -1,24 +1,81 @@
+import { useState } from "react";
 import styled from "styled-components";
+import {
+  validateEmail,
+  validateName,
+  validatePassword,
+} from "../../common/utils";
+import Button from "../../components/button";
 import Input from "../../components/input";
 import { useAuthContext } from "../../hooks/auth";
 
 const Register = () => {
-  const { name, setName, registerUser } = useAuthContext();
+  const {
+    name,
+    setName,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    registerUser,
+  } = useAuthContext();
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   return (
     <Wrapper>
       <Container>
         <Content>
           <Input
+            title="Name"
             value={name}
-            onChange={(e) => {
-              setName(e.target.value);
+            onChange={(value) => {
+              setName(value);
+            }}
+            onBlur={() => {
+              const error = validateName(name);
+              setNameError(error);
             }}
           />
-          <br />
-          <Input />
-          <br />
-          <Input />
+          <Input
+            title="Email"
+            value={email}
+            onChange={(value) => {
+              setEmail(value);
+            }}
+            onBlur={() => {
+              const error = validateEmail(email);
+              setEmailError(error);
+            }}
+          />
+          <Input
+            title="Password"
+            value={password}
+            onChange={(value) => {
+              setPassword(value);
+            }}
+            type="password"
+            onBlur={() => {
+              const error = validatePassword(password);
+              setPasswordError(error);
+            }}
+          />
+          <Button
+            disabled={
+              !name ||
+              !email ||
+              !password ||
+              !!nameError ||
+              !!emailError ||
+              !!passwordError
+            }
+            title="Submit"
+            variant="p"
+            onClick={() => {
+              registerUser();
+            }}
+          />
         </Content>
       </Container>
     </Wrapper>
@@ -43,6 +100,7 @@ const Container = styled.div`
 `;
 const Content = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;

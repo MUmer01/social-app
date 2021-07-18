@@ -5,7 +5,6 @@ const Input = (props) => {
     <StyledInput
       {...props}
       style={{
-        color: "red",
         ...props.style,
       }}
       type={props.type || "text"}
@@ -13,8 +12,6 @@ const Input = (props) => {
   );
 };
 
-const StyledInput = styled.input`
-    background-color: red;
-`;
+const StyledInput = styled.input``;
 
 export default Input;

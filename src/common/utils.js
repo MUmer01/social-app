@@ -1,12 +1,12 @@
-import { regOnlyAlpha, regEmail } from "./constant";
+import { regUserName, regEmail } from "./constant";
 
-export const validateName = (name) => {
+export const validateUserName = (name) => {
   const value = typeof name === "string" ? name.trim() : "";
   if (!value) {
     return "Name is required";
   } else if (value.length < 3) {
     return "Name should atleast be 3 chracters";
-  } else if (!regOnlyAlpha.test(value)) {
+  } else if (!regUserName.test(value)) {
     return "Name should only contains alphabets";
   }
   return "";

@@ -1,27 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
-import {
-  validateEmail,
-  validateUserName,
-  validatePassword,
-} from "../../common/utils";
+import { validateUserName, validatePassword } from "../../common/utils";
 import Button from "../../components/button";
 import Input from "../../components/input";
 import { useAuthContext } from "../../hooks/auth";
 
-const Register = () => {
-  const {
-    name,
-    setName,
-    email,
-    setEmail,
-    password,
-    setPassword,
-    registerUser,
-    setIsLogin,
-  } = useAuthContext();
+const Login = () => {
+  const { name, setName, password, setPassword, loginUser } = useAuthContext();
   const [nameError, setNameError] = useState("");
-  const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
   return (
@@ -41,18 +27,6 @@ const Register = () => {
             }}
           />
           <Input
-            title="Email"
-            error={emailError}
-            value={email}
-            onChange={(value) => {
-              setEmail(value);
-            }}
-            onBlur={() => {
-              const error = validateEmail(email);
-              setEmailError(error);
-            }}
-          />
-          <Input
             title="Password"
             error={passwordError}
             value={password}
@@ -66,25 +40,11 @@ const Register = () => {
             }}
           />
           <Button
-            disabled={
-              !name ||
-              !email ||
-              !password ||
-              !!nameError ||
-              !!emailError ||
-              !!passwordError
-            }
-            title="Submit"
+            disabled={!name || !password || !!nameError || !!passwordError}
+            title="Login"
             variant="p"
             onClick={() => {
-              registerUser();
-            }}
-          />
-          <Button
-            title="Go to Login"
-            variant="s"
-            onClick={() => {
-              setIsLogin(true);
+              loginUser();
             }}
           />
         </Content>
@@ -117,4 +77,4 @@ const Content = styled.div`
   align-items: center;
 `;
 
-export default Register;
+export default Login;

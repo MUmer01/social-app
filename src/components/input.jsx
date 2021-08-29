@@ -29,6 +29,7 @@ const InputWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   width: 250px;
+  margin-bottom: 10px;
 `;
 
 const Error = styled.p`

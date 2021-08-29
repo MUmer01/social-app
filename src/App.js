@@ -1,11 +1,7 @@
-import Login from "./features/login";
-import Register from "./features/signup";
-import { useAuthContext } from "./hooks/auth";
+import Routes from "./Routes";
 
 function App() {
-  const { isLogin } = useAuthContext();
-  console.log({isLogin})
-  return <>{isLogin ? <Login /> : <Register />}</>;
+  return <Routes />;
 }
 
 export default App;

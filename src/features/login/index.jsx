@@ -1,14 +1,19 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 import { validateUserName, validatePassword } from "../../common/utils";
 import Button from "../../components/button";
 import Input from "../../components/input";
 import { useAuthContext } from "../../hooks/auth";
 
 const Login = () => {
-  const { name, setName, password, setPassword, loginUser } = useAuthContext();
+  const [name, setName] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const [nameError, setNameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+
+  const { loginUser } = useAuthContext();
+  const history = useHistory();
 
   return (
     <Wrapper>
@@ -20,22 +25,18 @@ const Login = () => {
             value={name}
             onChange={(value) => {
               setName(value);
-            }}
-            onBlur={() => {
-              const error = validateUserName(name);
+              const error = validateUserName(value);
               setNameError(error);
             }}
           />
           <Input
             title="Password"
+            type="password"
             error={passwordError}
             value={password}
             onChange={(value) => {
               setPassword(value);
-            }}
-            type="password"
-            onBlur={() => {
-              const error = validatePassword(password);
+              const error = validatePassword(value);
               setPasswordError(error);
             }}
           />
@@ -44,7 +45,14 @@ const Login = () => {
             title="Login"
             variant="p"
             onClick={() => {
-              loginUser();
+              loginUser({ name, password });
+            }}
+          />
+          <Button
+            title="Go to Signup"
+            variant="s"
+            onClick={() => {
+              history.push("register");
             }}
           />
         </Content>
@@ -62,7 +70,7 @@ const Wrapper = styled.div`
 `;
 const Container = styled.div`
   width: 400px;
-  height: 200px;
+  height: 300px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   display: flex;
 

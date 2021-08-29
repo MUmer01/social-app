@@ -1,5 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+
 import {
   validateEmail,
   validateUserName,
@@ -10,20 +12,15 @@ import Input from "../../components/input";
 import { useAuthContext } from "../../hooks/auth";
 
 const Register = () => {
-  const {
-    name,
-    setName,
-    email,
-    setEmail,
-    password,
-    setPassword,
-    registerUser,
-    setIsLogin,
-  } = useAuthContext();
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
+  const { registerUser } = useAuthContext();
+  const history = useHistory();
   return (
     <Wrapper>
       <Container>
@@ -34,9 +31,7 @@ const Register = () => {
             value={name}
             onChange={(value) => {
               setName(value);
-            }}
-            onBlur={() => {
-              const error = validateUserName(name);
+              const error = validateUserName(value);
               setNameError(error);
             }}
           />
@@ -46,9 +41,7 @@ const Register = () => {
             value={email}
             onChange={(value) => {
               setEmail(value);
-            }}
-            onBlur={() => {
-              const error = validateEmail(email);
+              const error = validateEmail(value);
               setEmailError(error);
             }}
           />
@@ -58,12 +51,10 @@ const Register = () => {
             value={password}
             onChange={(value) => {
               setPassword(value);
-            }}
-            type="password"
-            onBlur={() => {
-              const error = validatePassword(password);
+              const error = validatePassword(value);
               setPasswordError(error);
             }}
+            type="password"
           />
           <Button
             disabled={
@@ -77,14 +68,18 @@ const Register = () => {
             title="Submit"
             variant="p"
             onClick={() => {
-              registerUser();
+              registerUser({
+                password,
+                email,
+                name,
+              });
             }}
           />
           <Button
             title="Go to Login"
             variant="s"
             onClick={() => {
-              setIsLogin(true);
+              history.push("login");
             }}
           />
         </Content>
@@ -102,7 +97,7 @@ const Wrapper = styled.div`
 `;
 const Container = styled.div`
   width: 400px;
-  height: 200px;
+  height: 300px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   display: flex;
 

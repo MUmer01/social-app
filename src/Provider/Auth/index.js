@@ -1,45 +1,45 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import useAuthCounteiner from "../../containers/auth";
 import { AuthContext } from "./contex";
 
 const AuthProvider = (props) => {
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
   const { createUser, loginUser } = useAuthCounteiner();
   const [isLogin, setIsLogin] = React.useState(false);
   const [user, setUser] = React.useState({});
+  const history = useHistory();
 
-  const registerUser = async () => {
-    const isSuccess = await createUser(name, email, password);
-    if (isSuccess) {
+  const registerUser = async ({ name, email, password }) => {
+    const res = await createUser(name, email, password);
+    if (res.isSuccess) {
+      history.push("login");
       alert("Success");
-      setIsLogin(true);
     } else {
-      alert("Fail");
+      alert(res.message);
     }
   };
-  const login = async () => {
+
+  const login = async ({ name, password }) => {
     const res = await loginUser(name, password);
-    if (res && res.loggedIn) {
-      alert("Success");
-      setUser({
-        username: res.username,
-      });
+    if (res.isSuccess) {
+      console.log({ res });
     } else {
-      alert("Fail");
+      alert(res.message);
     }
+
+    // if (res && res.loggedIn) {
+    //   alert("Success");
+    //   setUser({
+    //     username: res.username,
+    //   });
+    // } else {
+    //   alert("Fail");
+    // }
   };
 
   const providerValues = {
-    name,
-    email,
-    password,
     isLogin,
     user,
-    setName,
-    setEmail,
-    setPassword,
     setIsLogin,
     registerUser,
     loginUser: login,

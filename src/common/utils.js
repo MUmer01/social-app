@@ -4,10 +4,12 @@ export const validateUserName = (name) => {
   const value = typeof name === "string" ? name.trim() : "";
   if (!value) {
     return "Name is required";
-  } else if (value.length < 3) {
+  }
+  if (value.length < 3) {
     return "Name should atleast be 3 chracters";
-  } else if (!regUserName.test(value)) {
-    return "Name should only contains alphabets";
+  }
+  if (!regUserName.test(value)) {
+    return "Name should only contains alphabets or numbers";
   }
   return "";
 };

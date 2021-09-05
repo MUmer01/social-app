@@ -25,6 +25,7 @@ const Register = () => {
     <Wrapper>
       <Container>
         <Content>
+          <h1>Signup</h1>
           <Input
             title="Username"
             error={nameError}

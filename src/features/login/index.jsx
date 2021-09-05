@@ -19,6 +19,7 @@ const Login = () => {
     <Wrapper>
       <Container>
         <Content>
+          <h1>Login</h1>
           <Input
             title="Username"
             error={nameError}

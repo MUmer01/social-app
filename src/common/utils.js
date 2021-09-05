@@ -33,3 +33,34 @@ export const validatePassword = (pass) => {
   }
   return "";
 };
+
+export const setLocalStorage = (key, data, hours) => {
+  try {
+    if (key && data) {
+      const modify = {
+        data,
+        time: hours ? new Date().getTime() + hours * 60 * 60 * 1000 : null,
+      };
+      localStorage.setItem(key, JSON.stringify(modify));
+    }
+  } catch (e) {
+    console.error({ e });
+  }
+};
+export const getLocalStorage = (key) => {
+  try {
+    if (key) {
+      const data = localStorage.getItem(key);
+      if (data) {
+        const modify = JSON.parse(data);
+        if (modify.time && new Date(modify.time) <= new Date()) {
+          localStorage.removeItem(key);
+          throw new Error("Data Expired");
+        }
+        return modify.data;
+      }
+    }
+  } catch (e) {
+    console.error({ e });
+  }
+};

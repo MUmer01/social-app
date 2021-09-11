@@ -1,10 +1,10 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
-import usePostsCounteiner from "../../containers/posts";
-import { useAuthContext } from "../../hooks/auth";
-import { PostsContext } from "./context";
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+import usePostsCounteiner from '../../containers/posts';
+import { useAuthContext } from '../../hooks/auth';
+import { PostsContext } from './context';
 
-const PostsProvider = (props) => {
+const PostsProvider = props => {
   const { create, getPosts } = usePostsCounteiner();
   const { user, token } = useAuthContext();
   const [isLoading, setIsLoading] = React.useState(false);
@@ -19,10 +19,10 @@ const PostsProvider = (props) => {
         image,
         username: user.username,
       },
-      token
+      token,
     );
     if (res.isSuccess) {
-      setPosts((currentPosts) => {
+      setPosts(currentPosts => {
         const copy = [...currentPosts];
         copy.unshift(res.data.post);
         return copy;

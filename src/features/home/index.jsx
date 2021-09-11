@@ -1,12 +1,12 @@
-import React from "react";
-import Input from "../../components/input";
-import Button from "../../components/button";
-import { usePostsContext } from "../../hooks/posts";
+import React from 'react';
+import Input from '../../components/input';
+import Button from '../../components/button';
+import { usePostsContext } from '../../hooks/posts';
 
 const Home = () => {
-  const [title, setTitle] = React.useState("");
-  const [description, setDescription] = React.useState("");
-  const [image, setImage] = React.useState("");
+  const [title, setTitle] = React.useState('');
+  const [description, setDescription] = React.useState('');
+  const [image, setImage] = React.useState('');
   const { createPost, posts, handleGetAllPosts } = usePostsContext();
 
   React.useEffect(() => {
@@ -22,21 +22,21 @@ const Home = () => {
       <div>
         <Input
           title="Post Title"
-          onChange={(v) => {
+          onChange={v => {
             setTitle(v);
           }}
           value={title}
         />
         <Input
           title="Post Description"
-          onChange={(v) => {
+          onChange={v => {
             setDescription(v);
           }}
           value={description}
         />
         <Input
           title="Image URL"
-          onChange={(v) => {
+          onChange={v => {
             setImage(v);
           }}
           value={image}
@@ -53,7 +53,7 @@ const Home = () => {
         {/* <input type="file" /> */}
       </div>
       <div>
-        {posts.map((post) => {
+        {posts.map(post => {
           return (
             <div key={post.id}>
               <h1>{post.username}</h1>

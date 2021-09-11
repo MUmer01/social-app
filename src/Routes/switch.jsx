@@ -1,18 +1,18 @@
-import React from "react";
+import React from 'react';
 import {
   Switch,
   Route,
   Redirect,
   useHistory,
   useLocation,
-} from "react-router-dom";
-import Login from "../features/login";
-import Register from "../features/signup";
-import Home from "../features/home";
-import { useAuthContext } from "../hooks/auth";
-import { unAuthorizedRoutes } from "../common/constant";
+} from 'react-router-dom';
+import Login from '../features/login';
+import Register from '../features/signup';
+import Home from '../features/home';
+import { useAuthContext } from '../hooks/auth';
+import { unAuthorizedRoutes } from '../common/constant';
 
-const SwitchComp = (props) => {
+const SwitchComp = props => {
   const [isLoading, setIsLoading] = React.useState(true);
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
   const { token } = useAuthContext();
@@ -22,10 +22,10 @@ const SwitchComp = (props) => {
   React.useEffect(() => {
     const isRouteUnAuth = unAuthorizedRoutes.includes(location.pathname);
     if (isRouteUnAuth && token) {
-      history.replace("home");
+      history.replace('home');
       setIsAuthenticated(true);
     } else if (!isRouteUnAuth && !token) {
-      history.replace("login");
+      history.replace('login');
       setIsAuthenticated(false);
     }
     setTimeout(() => {

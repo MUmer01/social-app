@@ -1,14 +1,14 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
-import useAuthCounteiner from "../../containers/auth";
-import { AuthContext } from "./contex";
-import { setLocalStorage, getLocalStorage } from "../../common/utils";
-import { localStorageKys } from "../../common/constant";
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+import useAuthCounteiner from '../../containers/auth';
+import { AuthContext } from './contex';
+import { setLocalStorage, getLocalStorage } from '../../common/utils';
+import { localStorageKys } from '../../common/constant';
 
-const AuthProvider = (props) => {
+const AuthProvider = props => {
   const { createUser, loginUser } = useAuthCounteiner();
   const [isLogin, setIsLogin] = React.useState(false);
-  const [token, setToken] = React.useState("");
+  const [token, setToken] = React.useState('');
   const [user, setUser] = React.useState({});
   const history = useHistory();
 
@@ -19,7 +19,7 @@ const AuthProvider = (props) => {
   const registerUser = async ({ name, email, password }) => {
     const res = await createUser(name, email, password);
     if (res.isSuccess) {
-      history.push("login");
+      history.push('login');
     }
     alert(res.message);
   };

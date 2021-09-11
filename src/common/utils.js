@@ -1,37 +1,37 @@
-import { regUserName, regEmail } from "./constant";
+import { regUserName, regEmail } from './constant';
 
-export const validateUserName = (name) => {
-  const value = typeof name === "string" ? name.trim() : "";
+export const validateUserName = name => {
+  const value = typeof name === 'string' ? name.trim() : '';
   if (!value) {
-    return "Name is required";
+    return 'Name is required';
   }
   if (value.length < 3) {
-    return "Name should atleast be 3 chracters";
+    return 'Name should atleast be 3 chracters';
   }
   if (!regUserName.test(value)) {
-    return "Name should only contains alphabets or numbers";
+    return 'Name should only contains alphabets or numbers';
   }
-  return "";
+  return '';
 };
 
-export const validateEmail = (email) => {
-  const value = typeof email === "string" ? email.trim() : "";
+export const validateEmail = email => {
+  const value = typeof email === 'string' ? email.trim() : '';
   if (!value) {
-    return "Email is required";
+    return 'Email is required';
   } else if (!regEmail.test(value)) {
-    return "Please Enter valid Email";
+    return 'Please Enter valid Email';
   }
-  return "";
+  return '';
 };
 
-export const validatePassword = (pass) => {
-  const value = typeof pass === "string" ? pass.trim() : "";
+export const validatePassword = pass => {
+  const value = typeof pass === 'string' ? pass.trim() : '';
   if (!value) {
-    return "Password is required";
+    return 'Password is required';
   } else if (value.length < 6) {
-    return "Password should atleast be 6 chracters";
+    return 'Password should atleast be 6 chracters';
   }
-  return "";
+  return '';
 };
 
 export const setLocalStorage = (key, data, hours) => {
@@ -47,7 +47,7 @@ export const setLocalStorage = (key, data, hours) => {
     console.error({ e });
   }
 };
-export const getLocalStorage = (key) => {
+export const getLocalStorage = key => {
   try {
     if (key) {
       const data = localStorage.getItem(key);
@@ -55,7 +55,7 @@ export const getLocalStorage = (key) => {
         const modify = JSON.parse(data);
         if (modify.time && new Date(modify.time) <= new Date()) {
           localStorage.removeItem(key);
-          throw new Error("Data Expired");
+          throw new Error('Data Expired');
         }
         return modify.data;
       }

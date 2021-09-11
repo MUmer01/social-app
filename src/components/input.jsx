@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Input = ({ title, error, onChange, ...props }) => {
   return (
@@ -10,8 +10,8 @@ const Input = ({ title, error, onChange, ...props }) => {
           style={{
             ...props.style,
           }}
-          type={props.type || "text"}
-          onChange={(e) => {
+          type={props.type || 'text'}
+          onChange={e => {
             onChange(e.target.value);
           }}
         />

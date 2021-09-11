@@ -1,4 +1,4 @@
-import Axios from "axios";
+import Axios from 'axios';
 
 // https://social-media-uit.herokuapp.com/posts -> Method: post -> for creating post
 // title
@@ -15,20 +15,20 @@ const useAuthCounteiner = () => {
   const signup = async (name, email, password) => {
     try {
       const res = await Axios.post(
-        "https://social-media-uit.herokuapp.com/user/register",
+        'https://social-media-uit.herokuapp.com/user/register',
         {
           username: name,
           email,
           password,
-        }
+        },
       );
       if (res?.status === 200 && res?.data?.userId) {
         return {
           isSuccess: true,
-          message: "User registered successfully!",
+          message: 'User registered successfully!',
         };
       }
-      throw new Error("");
+      throw new Error('');
     } catch (error) {
       console.log({ error });
       if (error?.response?.status === 409) {
@@ -39,7 +39,7 @@ const useAuthCounteiner = () => {
       }
       return {
         isSuccess: false,
-        message: "Failed",
+        message: 'Failed',
       };
     }
   };
@@ -47,11 +47,11 @@ const useAuthCounteiner = () => {
   const login = async (name, password) => {
     try {
       const res = await Axios.post(
-        "https://social-media-uit.herokuapp.com/user/login",
+        'https://social-media-uit.herokuapp.com/user/login',
         {
           username: name,
           password,
-        }
+        },
       );
       console.log({ res });
       if (res?.status === 200 && res?.data?.token) {
@@ -63,12 +63,12 @@ const useAuthCounteiner = () => {
           },
         };
       }
-      throw new Error("");
+      throw new Error('');
     } catch (error) {
       console.log({ error });
       return {
         isSuccess: false,
-        message: error?.data?.message || "Failed",
+        message: error?.data?.message || 'Failed',
       };
     }
   };

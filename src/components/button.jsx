@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Button = ({ title, variant, ...props }) => {
   return (
@@ -20,8 +20,8 @@ const StyledButton = styled.button`
   border: 2px solid;
   outline: none;
   ${({ variant, disabled }) => {
-    const txtColor = disabled ? "#aaa" : variant === "s" ? "green" : "white";
-    const bgColor = disabled ? "#eee" : variant === "s" ? "white" : "green";
+    const txtColor = disabled ? '#aaa' : variant === 's' ? 'green' : 'white';
+    const bgColor = disabled ? '#eee' : variant === 's' ? 'white' : 'green';
     return `
         border-color: ${txtColor};
         background-color: ${bgColor};

@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { useHistory } from "react-router-dom";
-import { validateUserName, validatePassword } from "../../common/utils";
-import Button from "../../components/button";
-import Input from "../../components/input";
-import { useAuthContext } from "../../hooks/auth";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
+import { validateUserName, validatePassword } from '../../common/utils';
+import Button from '../../components/button';
+import Input from '../../components/input';
+import { useAuthContext } from '../../hooks/auth';
 
 const Login = () => {
-  const [name, setName] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [nameError, setNameError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const [name, setName] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [nameError, setNameError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   const { loginUser } = useAuthContext();
   const history = useHistory();
@@ -24,7 +24,7 @@ const Login = () => {
             title="Username"
             error={nameError}
             value={name}
-            onChange={(value) => {
+            onChange={value => {
               setName(value);
               const error = validateUserName(value);
               setNameError(error);
@@ -35,7 +35,7 @@ const Login = () => {
             type="password"
             error={passwordError}
             value={password}
-            onChange={(value) => {
+            onChange={value => {
               setPassword(value);
               const error = validatePassword(value);
               setPasswordError(error);
@@ -53,7 +53,7 @@ const Login = () => {
             title="Go to Signup"
             variant="s"
             onClick={() => {
-              history.push("register");
+              history.push('register');
             }}
           />
         </Content>

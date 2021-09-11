@@ -1,23 +1,23 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 
 import {
   validateEmail,
   validateUserName,
   validatePassword,
-} from "../../common/utils";
-import Button from "../../components/button";
-import Input from "../../components/input";
-import { useAuthContext } from "../../hooks/auth";
+} from '../../common/utils';
+import Button from '../../components/button';
+import Input from '../../components/input';
+import { useAuthContext } from '../../hooks/auth';
 
 const Register = () => {
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [nameError, setNameError] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [nameError, setNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   const { registerUser } = useAuthContext();
   const history = useHistory();
@@ -30,7 +30,7 @@ const Register = () => {
             title="Username"
             error={nameError}
             value={name}
-            onChange={(value) => {
+            onChange={value => {
               setName(value);
               const error = validateUserName(value);
               setNameError(error);
@@ -40,7 +40,7 @@ const Register = () => {
             title="Email"
             error={emailError}
             value={email}
-            onChange={(value) => {
+            onChange={value => {
               setEmail(value);
               const error = validateEmail(value);
               setEmailError(error);
@@ -50,7 +50,7 @@ const Register = () => {
             title="Password"
             error={passwordError}
             value={password}
-            onChange={(value) => {
+            onChange={value => {
               setPassword(value);
               const error = validatePassword(value);
               setPasswordError(error);
@@ -80,7 +80,7 @@ const Register = () => {
             title="Go to Login"
             variant="s"
             onClick={() => {
-              history.push("login");
+              history.push('login');
             }}
           />
         </Content>

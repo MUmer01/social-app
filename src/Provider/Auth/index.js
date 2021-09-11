@@ -45,12 +45,13 @@ const AuthProvider = (props) => {
     // }
   };
 
+  // Auto Login after reopen the browser
   React.useEffect(() => {
-    const u = getLocalStorage(localStorageKys.USER);
-    const t = getLocalStorage(localStorageKys.AUTH_TOKEN);
-    if (u && t) {
-      setUser(u);
-      setToken(t);
+    const _user = getLocalStorage(localStorageKys.USER);
+    const _token = getLocalStorage(localStorageKys.AUTH_TOKEN);
+    if (_user && _token) {
+      setUser(_user);
+      setToken(_token);
     }
   }, []);
 

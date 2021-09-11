@@ -1,5 +1,16 @@
 import Axios from "axios";
 
+// https://social-media-uit.herokuapp.com/posts -> Method: post -> for creating post
+// title
+// description
+// image
+// username
+
+// https://social-media-uit.herokuapp.com/posts -> Method: get -> to fetch the posts
+
+// https://social-media-uit.herokuapp.com/like -> Method: post
+// userLiking
+// postId
 const useAuthCounteiner = () => {
   const signup = async (name, email, password) => {
     try {

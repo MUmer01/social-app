@@ -6,18 +6,18 @@ import { PostsContext } from './context';
 
 const PostsProvider = props => {
   const { create, getPosts } = usePostsCounteiner();
-  const { user, token } = useAuthContext();
+  const { token } = useAuthContext();
   const [isLoading, setIsLoading] = React.useState(false);
   const [posts, setPosts] = React.useState([]);
   const history = useHistory();
 
   const createPost = async ({ title, description, image }) => {
+    setIsLoading(true);
     const res = await create(
       {
         title,
         description,
         image,
-        username: user.username,
       },
       token,
     );
@@ -29,6 +29,7 @@ const PostsProvider = props => {
       });
       alert(res.data.message);
     }
+    setIsLoading(false);
   };
 
   const handleGetAllPosts = async () => {

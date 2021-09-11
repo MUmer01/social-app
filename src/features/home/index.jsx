@@ -1,21 +1,23 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import Input from '../../components/input';
+import InputImage from '../../components/inputImage';
 import Button from '../../components/button';
 import { usePostsContext } from '../../hooks/posts';
 
 const Home = () => {
   const [title, setTitle] = React.useState('');
   const [description, setDescription] = React.useState('');
-  const [image, setImage] = React.useState('');
-  const { createPost, posts, handleGetAllPosts } = usePostsContext();
+  const [image, setImage] = React.useState(null);
+  const { createPost, posts, handleGetAllPosts, isLoading } = usePostsContext();
 
   React.useEffect(() => {
     handleGetAllPosts();
   }, []);
 
   React.useEffect(() => {
-    console.log({ posts });
-  }, [posts]);
+    console.log({ image });
+  }, [image]);
 
   return (
     <div>
@@ -34,23 +36,28 @@ const Home = () => {
           }}
           value={description}
         />
-        <Input
-          title="Image URL"
-          onChange={v => {
-            setImage(v);
-          }}
+        <InputImage
+          title="Select Image"
           value={image}
+          onChange={files => {
+            if (files?.length) {
+              setImage(files[0]);
+            } else {
+              setImage(null);
+            }
+          }}
         />
         <Button
-          disabled={!image || !description || !title}
+          disabled={!image || !description || !title || isLoading}
           title="Login"
           variant="p"
           onClick={() => {
-            console.log(image, description, title);
             createPost({ image, description, title });
+            setTitle('');
+            setDescription('');
+            setImage(null);
           }}
         />
-        {/* <input type="file" /> */}
       </div>
       <div>
         {posts.map(post => {

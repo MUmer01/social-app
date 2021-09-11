@@ -9,18 +9,19 @@ import Axios from 'axios';
 
 // https://social-media-uit.herokuapp.com/like -> Method: post
 // postId
+
 const usePostsCounteiner = () => {
-  const create = async ({ title, description, image, username }, token) => {
+  const create = async ({ title, description, image }, token) => {
     try {
+      const formData = new FormData();
+      formData.append('image', image);
+      formData.append('title', title);
+      formData.append('description', description);
+
       const res = await Axios({
         method: 'post',
         url: 'https://social-media-uit.herokuapp.com/posts',
-        data: {
-          title,
-          description,
-          image,
-          username,
-        },
+        data: formData,
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,

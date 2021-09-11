@@ -53,7 +53,6 @@ const useAuthCounteiner = () => {
           password,
         },
       );
-      console.log({ res });
       if (res?.status === 200 && res?.data?.token) {
         return {
           isSuccess: true,

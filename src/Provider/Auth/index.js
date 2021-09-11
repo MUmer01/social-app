@@ -27,7 +27,6 @@ const AuthProvider = props => {
   const login = async ({ name, password }) => {
     const res = await loginUser(name, password);
     if (res.isSuccess) {
-      console.log({ data: res.data });
       setToken(res.data.token);
       setUser(res.data.user);
       // history.push("home");

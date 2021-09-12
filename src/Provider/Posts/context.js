@@ -5,6 +5,7 @@ const PostsContext = React.createContext({
   posts: [],
   createPost: async () => {},
   handleGetAllPosts: async () => {},
+  handleLikePost: async () => {},
 });
 
 export { PostsContext };

@@ -3,10 +3,11 @@ import styled from 'styled-components';
 const Input = ({ title, error, onChange, ...props }) => {
   return (
     <InputWrapper>
-      {title ? <label>{title}</label> : null}
+      {title ? <label htmlFor={title.split(" ").join("")}>{title}</label> : null}
       <div>
         <StyledInput
           {...props}
+          id={title.split(" ").join("")}
           style={{
             ...props.style,
           }}

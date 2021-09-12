@@ -5,7 +5,7 @@ import { useAuthContext } from '../../hooks/auth';
 import { PostsContext } from './context';
 
 const PostsProvider = props => {
-  const { create, getPosts } = usePostsCounteiner();
+  const { create, getPosts, likePost } = usePostsCounteiner();
   const { token } = useAuthContext();
   const [isLoading, setIsLoading] = React.useState(false);
   const [posts, setPosts] = React.useState([]);
@@ -39,11 +39,27 @@ const PostsProvider = props => {
     }
   };
 
+  const handleLikePost = async postId => {
+    const res = await likePost(postId, token);
+    if (res.isSuccess) {
+      setPosts(currentPosts => {
+        const copy = JSON.parse(JSON.stringify(currentPosts));
+        const currentPostIndex = copy.findIndex(post => {
+          return post.id === postId;
+        });
+        const isLiked = copy[currentPostIndex].isLiked;
+        copy[currentPostIndex].isLiked = !isLiked;
+        return copy;
+      });
+    }
+  };
+
   const providerValues = {
     isLoading,
     posts,
     createPost,
     handleGetAllPosts,
+    handleLikePost,
   };
 
   return (

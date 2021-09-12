@@ -7,7 +7,7 @@ import Axios from 'axios';
 
 // https://social-media-uit.herokuapp.com/posts -> Method: get -> to fetch the posts
 
-// https://social-media-uit.herokuapp.com/like -> Method: post
+// https://social-media-uit.herokuapp.com/posts/like -> Method: post
 // postId
 
 const usePostsCounteiner = () => {
@@ -77,9 +77,39 @@ const usePostsCounteiner = () => {
     }
   };
 
+  const likePost = async (postId, token) => {
+    try {
+      const res = await Axios({
+        method: 'post',
+        url: 'https://social-media-uit.herokuapp.com/posts/like',
+        data: {
+          postId,
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log({ res });
+      if (res?.status === 200 && res?.data?.affectedRows > 0) {
+        return {
+          isSuccess: true,
+        };
+      }
+      throw new Error('');
+    } catch (error) {
+      console.log({ error });
+      return {
+        isSuccess: false,
+        message: error?.data?.message || 'Failed',
+      };
+    }
+  };
+
   return {
     create,
     getPosts,
+    likePost,
   };
 };
 

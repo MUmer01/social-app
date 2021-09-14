@@ -90,10 +90,15 @@ const usePostsCounteiner = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log({ res });
-      if (res?.status === 200 && res?.data?.affectedRows > 0) {
+      if (
+        res?.status === 200 &&
+        (res?.data?.message === 'Post liked successfully' ||
+          res?.data?.message === 'Post unliked successfully')
+      ) {
         return {
           isSuccess: true,
+          isLiked: res.data,
+          totalLikes: res.totalLikes,
         };
       }
       throw new Error('');

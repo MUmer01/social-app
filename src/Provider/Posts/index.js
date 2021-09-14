@@ -1,5 +1,4 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import usePostsCounteiner from '../../containers/posts';
 import { useAuthContext } from '../../hooks/auth';
 import { PostsContext } from './context';
@@ -9,7 +8,6 @@ const PostsProvider = props => {
   const { token } = useAuthContext();
   const [isLoading, setIsLoading] = React.useState(false);
   const [posts, setPosts] = React.useState([]);
-  const history = useHistory();
 
   const createPost = async ({ title, description, image }) => {
     setIsLoading(true);
@@ -49,6 +47,8 @@ const PostsProvider = props => {
         });
         const isLiked = copy[currentPostIndex].isLiked;
         copy[currentPostIndex].isLiked = !isLiked;
+        copy[currentPostIndex].totalLikes =
+          copy[currentPostIndex].totalLikes + (isLiked ? -1 : 1);
         return copy;
       });
     }

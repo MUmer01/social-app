@@ -24,16 +24,19 @@ const Home = () => {
               <p>{post.title}</p>
               <img src={post.image} alt="" width="150" />
               <p>{post.description}</p>
-              <FontAwesomeIcon
-                icon={faThumbsUp}
-                onClick={() => {
-                  handleLikePost(post.id);
-                }}
-                style={{
-                  color: post.isLiked ? 'red' : '#ccc',
-                  cursor: 'pointer',
-                }}
-              />
+              <div>
+                <FontAwesomeIcon
+                  icon={faThumbsUp}
+                  onClick={() => {
+                    handleLikePost(post.id);
+                  }}
+                  style={{
+                    color: post.isLiked ? 'red' : '#ccc',
+                    cursor: 'pointer',
+                  }}
+                />
+                <span> {post.totalLikes}</span>
+              </div>
             </PostContainer>
           );
         })}

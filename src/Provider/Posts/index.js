@@ -37,7 +37,7 @@ const PostsProvider = props => {
     }
   };
 
-  const handleLikePost = async postId => {
+  const handleLikePost = async (postId, name) => {
     const res = await likePost(postId, token);
     if (res.isSuccess) {
       setPosts(currentPosts => {
@@ -45,11 +45,14 @@ const PostsProvider = props => {
         const currentPostIndex = copy.findIndex(post => {
           return post.id === postId;
         });
-        const isLiked = copy[currentPostIndex].isLiked;
-        copy[currentPostIndex].isLiked = !isLiked;
-        copy[currentPostIndex].totalLikes =
-          copy[currentPostIndex].totalLikes + (isLiked ? -1 : 1);
-        return copy;
+        if (currentPostIndex >= 0) {
+          const isLiked = copy[currentPostIndex].isLiked;
+          copy[currentPostIndex].isLiked = !isLiked;
+          copy[currentPostIndex].totalLikes =
+            copy[currentPostIndex].totalLikes + (isLiked ? -1 : 1);
+          return copy;
+        }
+        return currentPosts;
       });
     }
   };

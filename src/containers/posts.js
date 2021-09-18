@@ -97,8 +97,8 @@ const usePostsCounteiner = () => {
       ) {
         return {
           isSuccess: true,
-          isLiked: res.data,
-          totalLikes: res.totalLikes,
+          isLiked: res.data.isLiked,
+          totalLikes: res.data.totalLikes,
         };
       }
       throw new Error('');

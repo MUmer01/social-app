@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import Input from '../components/input';
 import InputImage from '../components/inputImage';
 import Button from '../components/button';
@@ -9,7 +9,7 @@ const CreatePost = () => {
   const [description, setDescription] = React.useState('');
   const [image, setImage] = React.useState(null);
   const { createPost, posts, handleGetAllPosts, isLoading } = usePostsContext();
-  
+
   return (
     <div>
       <Input
@@ -49,7 +49,7 @@ const CreatePost = () => {
         }}
       />
     </div>
-  )
-}
+  );
+};
 
-export {CreatePost}
+export { CreatePost };

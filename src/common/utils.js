@@ -64,3 +64,9 @@ export const getLocalStorage = key => {
     console.error({ e });
   }
 };
+
+export const removeLocalStorage = key => {
+  if (key) {
+    localStorage.removeItem(key);
+  }
+};

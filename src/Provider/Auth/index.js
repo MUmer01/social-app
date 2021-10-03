@@ -2,12 +2,15 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import useAuthCounteiner from '../../containers/auth';
 import { AuthContext } from './contex';
-import { setLocalStorage, getLocalStorage } from '../../common/utils';
-import { localStorageKys } from '../../common/constant';
+import {
+  setLocalStorage,
+  getLocalStorage,
+  removeLocalStorage,
+} from '../../common/utils';
+import { localStorageKeys } from '../../common/constant';
 
 const AuthProvider = props => {
   const { createUser, loginUser } = useAuthCounteiner();
-  const [isLogin, setIsLogin] = React.useState(false);
   const [token, setToken] = React.useState('');
   const [user, setUser] = React.useState({});
   const history = useHistory();
@@ -24,12 +27,20 @@ const AuthProvider = props => {
     alert(res.message);
   };
 
+  const logout = () => {
+    setUser({});
+    setToken('');
+    removeLocalStorage(localStorageKeys.USER);
+    removeLocalStorage(localStorageKeys.AUTH_TOKEN);
+    // history.push('/login');
+  };
+
   const login = async ({ name, password }) => {
     const res = await loginUser(name, password);
     if (res.isSuccess) {
       setToken(res.data.token);
       setUser(res.data.user);
-      // history.push("home");
+      // history.push('/home');
     } else {
       alert(res.message);
     }
@@ -46,33 +57,34 @@ const AuthProvider = props => {
 
   // Auto Login after reopen the browser
   React.useEffect(() => {
-    const _user = getLocalStorage(localStorageKys.USER);
-    const _token = getLocalStorage(localStorageKys.AUTH_TOKEN);
+    const _user = getLocalStorage(localStorageKeys.USER);
+    const _token = getLocalStorage(localStorageKeys.AUTH_TOKEN);
     if (_user && _token) {
       setUser(_user);
       setToken(_token);
+    } else {
+      logout();
     }
   }, []);
 
   React.useEffect(() => {
     if (user?.id) {
-      setLocalStorage(localStorageKys.USER, user, 24);
+      setLocalStorage(localStorageKeys.USER, user, 24);
     }
   }, [user]);
 
   React.useEffect(() => {
     if (token) {
-      setLocalStorage(localStorageKys.AUTH_TOKEN, token, 24);
+      setLocalStorage(localStorageKeys.AUTH_TOKEN, token, 24);
     }
   }, [token]);
 
   const providerValues = {
-    isLogin,
     user,
     token,
-    setIsLogin,
     registerUser,
     loginUser: login,
+    logoutUser: logout,
   };
 
   return (

@@ -2,13 +2,17 @@ import Axios from 'axios';
 
 // https://social-media-uit.herokuapp.com/posts -> Method: post -> for creating post
 // title
+// isLiked
 // description
 // image
+// totalLikes
 
 // https://social-media-uit.herokuapp.com/posts -> Method: get -> to fetch the posts
 
 // https://social-media-uit.herokuapp.com/posts/like -> Method: post
 // postId
+
+// https://social-media-uit.herokuapp.com/posts/byUser/<userName> -> Method: get -> to fetch the posts
 
 const usePostsCounteiner = () => {
   const create = async ({ title, description, image }, token) => {

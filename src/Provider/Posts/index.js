@@ -9,6 +9,17 @@ const PostsProvider = props => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [posts, setPosts] = React.useState([]);
 
+  const cleanStates = () => {
+    setPosts([]);
+    setIsLoading(false);
+  };
+
+  React.useEffect(() => {
+    if (!token) {
+      cleanStates();
+    }
+  }, [token]);
+
   const createPost = async ({ title, description, image }) => {
     setIsLoading(true);
     const res = await create(

@@ -1,16 +1,18 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import {
   Switch,
   Route,
   Redirect,
-  useHistory,
   useLocation,
+  useHistory,
 } from 'react-router-dom';
 import Login from '../features/login';
 import Register from '../features/signup';
-import Home from '../features/home';
+import { localStorageKeys, unAuthorizedRoutes } from '../common/constant';
+import { AuthRoutes } from './AuthRoutes';
 import { useAuthContext } from '../hooks/auth';
-import { unAuthorizedRoutes } from '../common/constant';
+import { getLocalStorage } from '../common/utils';
 
 const SwitchComp = props => {
   const [isLoading, setIsLoading] = React.useState(true);
@@ -18,35 +20,53 @@ const SwitchComp = props => {
   const { token } = useAuthContext();
   const history = useHistory();
   const location = useLocation();
+  const localStorageToken = getLocalStorage(localStorageKeys.AUTH_TOKEN);
 
   React.useEffect(() => {
     const isRouteUnAuth = unAuthorizedRoutes.includes(location.pathname);
-    if (isRouteUnAuth && token) {
-      history.replace('home');
+    if (token) {
+      if (isRouteUnAuth) {
+        history.replace('home');
+      }
       setIsAuthenticated(true);
-    } else if (!isRouteUnAuth && !token) {
-      history.replace('login');
+    } else if (!token) {
+      if (!isRouteUnAuth && !localStorageToken) {
+        history.replace('login');
+      }
       setIsAuthenticated(false);
     }
+  }, [location, token]);
+
+  React.useEffect(() => {
+    // if (isAuthenticated) {
+    //   // Call APIs
+    // } else {
     setTimeout(() => {
       setIsLoading(false);
     }, Math.ceil(Math.random() * 1000) + 500);
-  }, [location, token]);
+    // }
+  }, [isAuthenticated]);
 
   return isLoading ? (
-    <Switch>
-      <Route path="/">
-        <div>
-          <h1>Loading...</h1>
-        </div>
-      </Route>
-    </Switch>
+    <LoadingRoute />
   ) : isAuthenticated ? (
     <AuthRoutes />
+  ) : localStorageToken ? (
+    <LoadingRoute />
   ) : (
     <UnAuthRoutes />
   );
 };
+
+const LoadingRoute = () => (
+  <Switch>
+    <Route path="/">
+      <div>
+        <h1>Loading...</h1>
+      </div>
+    </Route>
+  </Switch>
+);
 
 const UnAuthRoutes = () => (
   <Switch>
@@ -57,15 +77,6 @@ const UnAuthRoutes = () => (
       <Register />
     </Route>
     <Redirect exact from="/" to="/login" />
-  </Switch>
-);
-
-const AuthRoutes = () => (
-  <Switch>
-    <Route path="/home">
-      <Home />
-    </Route>
-    <Redirect exact from="/" to="/home" />
   </Switch>
 );
 
